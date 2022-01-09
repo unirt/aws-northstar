@@ -30,7 +30,7 @@ import React, {
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
-import useLocalStorage from 'react-use-localstorage';
+import _useLocalStorage from 'react-use-localstorage';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import IconButton from '@material-ui/core/IconButton';
@@ -137,6 +137,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
         borderLeft: `1px solid ${theme.palette.grey['400']}`,
     },
 }));
+
+const useLocalStorage = (key: string, initial: string): [string, React.Dispatch<string>] => {
+    return typeof window === 'undefined' ? [initial, (value: string) => undefined] : _useLocalStorage(key, initial);
+};
 
 const WIDTH_SIDEBAR = 285;
 const WIDTH_HELP_PANEL = 285;
